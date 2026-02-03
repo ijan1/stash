@@ -86,12 +86,11 @@ consteval auto get_index() -> std::size_t
 // Variant MixIn
 template<typename... Ts>
 struct MyVariant : std::variant<Ts...> {
- private:
-  MyVariant() = default;
-
  public:
   using Base = std::variant<Ts...>;
   using Base::Base;
+
+  MyVariant() = default;
 
   // allows us to get the index from a type
   // MyVariant::get_index<int>();
@@ -156,18 +155,15 @@ struct Fight {
 
 using Action = MyVariant<Flee, Fight, TypeTeller>;
 
-int main(int argc, char *argv[])
-{
+void test() {
   Action a = Action::Create<TypeTeller>();
 
-  auto visitor = overloads {
-    [](auto &&val){val();}
+  const auto visitor = [](auto &&val) {
+    val();
   };
 
   a.visit(visitor);
   std::as_const(a).visit(visitor);
   std::move(a).visit(visitor);
   std::move(std::as_const(a)).visit(visitor);
-
-  return 0;
 }

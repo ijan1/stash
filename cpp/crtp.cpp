@@ -28,7 +28,8 @@ using Derived = Derived_<Base, Args...>;
 
 struct Action : Derived<int, double> { };
 
-int main() {
+void test()
+{
   Action h;
   // 'f_pre_23()' is going to return Derived_, instead of Action
   auto t = h.f_pre_23();
@@ -36,5 +37,4 @@ int main() {
 
   // 'f_23()' returns type Action
   auto a = h.f_23();
-
 };
