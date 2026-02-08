@@ -1,3 +1,6 @@
+#ifndef BITSET_HPP
+#define BITSET_HPP
+
 #include <algorithm>
 #include <array>
 #include <cstddef>
@@ -124,7 +127,7 @@ class Bitset {
   }
 
  private:
-  storage_t bits{0};
+  storage_t bits{};
 
   [[nodiscard]] constexpr static auto which_word(std::size_t pos) -> std::size_t {
     return pos / bits_per_word;
@@ -181,3 +184,5 @@ void test() {
   static_assert(c.count() == 60);
 }
 
+
+#endif /* BITSET_HPP */
